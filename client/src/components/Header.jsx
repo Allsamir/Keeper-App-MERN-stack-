@@ -5,7 +5,7 @@ const Header = () => {
 
           return (
                      <header>
-                            <h1><HighlightIcon /> Keeper</h1>
+                            <a href="/" style={{textDecoration: "none"}}><h1><HighlightIcon /> Keeper</h1></a>
                      </header>
           )
 }

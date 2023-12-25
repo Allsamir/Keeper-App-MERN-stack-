@@ -5,11 +5,11 @@ import CreateArea from "./CreateArea";
 
 const App = () => {
           return(
-                    <div>
+                    <>
                               <Header />
                               <CreateArea />
                               <Footer />
-                    </div>
+                    </>
           )
 }
 

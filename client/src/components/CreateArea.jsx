@@ -73,7 +73,7 @@ const CreateArea = () => {
           }
  
           return(
-                    <div>
+                    <>
                               <form onSubmit={handleSubmit} className="create-note">
                                         {init && <input onChange={handleChange} name="title" placeholder="Title" value={note.title}/>}
                                         <textarea onClick={expand} onChange={handleChange} name="content" placeholder="Take a note..." rows={init ? "3" : "1"} value={note.content}></textarea>
@@ -85,7 +85,7 @@ const CreateArea = () => {
                                         <Note key={index} id={note._id} title={note.title} content={note.content} handleDelete={DeleteNote}/>
                               ))}
                               
-                    </div>
+                    </>
           )
 }
 export default CreateArea;
