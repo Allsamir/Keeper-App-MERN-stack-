@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ["Roboto", "sans-serif"],
+      sans: ["Poppins", "sans-serif"],
       pop: ["Poppins", "sans-serif"],
       lobStar: ["Lobster", "sans-serif"],
     },
