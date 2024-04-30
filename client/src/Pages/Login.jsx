@@ -49,7 +49,13 @@ const Login = () => {
     setPasswordVisiable(!isPasswordVisiable);
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div
+      className="hero min-h-screen bg-[#eee]"
+      style={{
+        backgroundImage:
+          'url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")',
+      }}
+    >
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold font-pop">Login now!</h1>

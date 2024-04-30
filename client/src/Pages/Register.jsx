@@ -58,61 +58,69 @@ const Register = () => {
     setPasswordVisiable(!isPasswordVisiable);
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div
+      className="hero min-h-screen bg-[#eee]"
+      style={{
+        backgroundImage:
+          'url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")',
+      }}
+    >
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold font-pop">Register now!</h1>
-          <p className="py-6 font-pop">
+          <h1 className="text-5xl font-bold font-pop text-black">
+            Register now!
+          </h1>
+          <p className="py-6 font-pop text-black">
             Keeper App keeps your note safe and secret
           </p>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-[#eee] text-black font-pop">
           <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Name</span>
+                <span className=" label-text text-black">Name</span>
               </label>
               <input
                 type="text"
                 placeholder="Name"
-                className="input input-bordered"
+                className="input input-bordered bg-[#eee]"
                 required
                 {...register("name")}
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className=" label-text text-black">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
+                className="input input-bordered bg-[#eee]"
                 required
                 {...register("email")}
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Photo URL</span>
+                <span className=" label-text text-black">Photo URL</span>
               </label>
               <input
                 type="text"
                 placeholder="Your Live Photo URL"
-                className="input input-bordered"
+                className="input input-bordered bg-[#eee]"
                 required
                 {...register("photoURL")}
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className=" label-text text-black">Password</span>
               </label>
               <div className="relative">
                 <input
                   type={isPasswordVisiable ? "text" : "password"}
                   placeholder="Password"
-                  className="input input-bordered w-full"
+                  className="input input-bordered bg-[#eee] w-full"
                   required
                   {...register("password")}
                 />
