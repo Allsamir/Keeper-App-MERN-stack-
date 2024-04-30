@@ -74,7 +74,7 @@ const Register = () => {
             Keeper App keeps your note safe and secret
           </p>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-[#eee] text-black font-pop">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl text-black font-pop">
           <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
@@ -135,7 +135,7 @@ const Register = () => {
             </div>
             <div className="form-control mt-6">
               <input
-                className="btn btn-primary"
+                className="btn btn-outline text-black"
                 type="submit"
                 value={`Register`}
               />

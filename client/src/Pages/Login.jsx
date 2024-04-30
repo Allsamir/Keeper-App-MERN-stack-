@@ -57,35 +57,35 @@ const Login = () => {
       }}
     >
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
-        <div className="text-center lg:text-left">
+        <div className="text-center lg:text-left font-pop text-black">
           <h1 className="text-5xl font-bold font-pop">Login now!</h1>
           <p className="py-6 font-pop">
             Keeper App keeps your note safe and secret
           </p>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg[#eee] text-black font-pop">
           <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="label-text text-black">Email</span>
               </label>
               <input
                 type="email"
                 placeholder="email"
-                className="input input-bordered"
+                className="input input-bordered bg-[#eee]"
                 required
                 {...register("email")}
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="label-text text-black">Password</span>
               </label>
               <div className="relative">
                 <input
                   type={isPasswordVisiable ? "text" : "password"}
                   placeholder="Password"
-                  className="input input-bordered w-full"
+                  className="input input-bordered bg-[#eee] w-full"
                   required
                   {...register("password")}
                 />
@@ -105,7 +105,7 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <input
-                className="btn btn-primary"
+                className="btn btn-outline text-black"
                 type="submit"
                 value={`Login`}
               />
