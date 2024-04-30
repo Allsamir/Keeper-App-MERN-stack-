@@ -1,13 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const { createUser } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { name, email, photoURL, password } = data;
@@ -37,7 +38,7 @@ const Register = () => {
             title: "Error!",
             text: `${errorCode} ${errorMessage}`,
             icon: "error",
-            confirmButtonText: "Cool",
+            confirmButtonText: "Close",
           });
         });
     } else {
@@ -52,9 +53,19 @@ const Register = () => {
       });
     }
   };
+
+  const handleTogglePasswordVisibility = () =>
+    setPasswordVisiable(!isPasswordVisiable);
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
+        <div className="text-center lg:text-left">
+          <h1 className="text-5xl font-bold font-pop">Register now!</h1>
+          <p className="py-6 font-pop">
+            Keeper App keeps your note safe and secret
+          </p>
+        </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
@@ -97,13 +108,22 @@ const Register = () => {
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input
-                type="password"
-                placeholder="password"
-                className="input input-bordered"
-                required
-                {...register("password")}
-              />
+              <div className="relative">
+                <input
+                  type={isPasswordVisiable ? "text" : "password"}
+                  placeholder="Password"
+                  className="input input-bordered w-full"
+                  required
+                  {...register("password")}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 px-3 py-1 bg-transparent"
+                  onClick={handleTogglePasswordVisibility}
+                >
+                  {isPasswordVisiable ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
             <div className="form-control mt-6">
               <input
@@ -112,6 +132,13 @@ const Register = () => {
                 value={`Register`}
               />
             </div>
+            <p className="text-center py-2">
+              Already have an account?{" "}
+              <Link className="text-blue-600" to={`/`}>
+                Login
+              </Link>{" "}
+              here
+            </p>
           </form>
         </div>
       </div>

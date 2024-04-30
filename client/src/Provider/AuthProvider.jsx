@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import Swal from "sweetalert2";
 export const AuthContext = createContext(null);
@@ -15,6 +16,10 @@ const AuthProvider = ({ children }) => {
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const login = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
@@ -42,6 +47,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     loading,
     logOut,
+    login,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
