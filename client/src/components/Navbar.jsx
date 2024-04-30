@@ -4,7 +4,13 @@ import { AuthContext } from "../Provider/AuthProvider";
 export const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
   return (
-    <div className="navbar bg-base-100">
+    <div
+      className="navbar bg[#eee] text-black"
+      style={{
+        backgroundImage:
+          'url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")',
+      }}
+    >
       <div className="flex-1">
         <a className="btn btn-ghost text-4xl font-lobStar">Keeper</a>
       </div>
@@ -20,7 +26,7 @@ export const Navbar = () => {
             </div>
           </li>
           <li>
-            <button onClick={logOut} className="btn btn-outline text-white">
+            <button onClick={logOut} className="btn btn-outline text-black">
               Logout
             </button>
           </li>

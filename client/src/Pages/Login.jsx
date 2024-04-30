@@ -98,9 +98,13 @@ const Login = () => {
                 </button>
               </div>
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
+                <Link
+                  to={`/reset-password`}
+                  href="#"
+                  className="label-text-alt link link-hover text-black"
+                >
                   Forgot password?
-                </a>
+                </Link>
               </label>
             </div>
             <div className="form-control mt-6">
