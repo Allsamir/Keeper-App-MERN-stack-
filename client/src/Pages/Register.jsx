@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
@@ -21,13 +22,21 @@ const Register = () => {
             photoURL: photoURL,
           })
             .then(() => {
-              Swal.fire({
-                title: "Successfully Registered",
-                icon: "success",
-                confirmButtonText: "Close",
-              });
-              event.target.reset();
-              navigate("/home");
+              axios
+                .post("http://localhost:3000/users", {
+                  email: email,
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  Swal.fire({
+                    title: "Successfully Registered",
+                    icon: "success",
+                    confirmButtonText: "Close",
+                  });
+                  event.target.reset();
+                  navigate("/home");
+                })
+                .catch((err) => console.error(err));
             })
             .catch((err) => console.error(err));
         })
@@ -71,7 +80,7 @@ const Register = () => {
             Register now!
           </h1>
           <p className="py-6 font-pop text-black">
-            Keeper App keeps your note safe and secret
+            Keeper App keeps your note safe and secure
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl text-black font-pop">

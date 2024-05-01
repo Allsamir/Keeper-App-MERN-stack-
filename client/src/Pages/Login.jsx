@@ -60,7 +60,7 @@ const Login = () => {
         <div className="text-center lg:text-left font-pop text-black">
           <h1 className="text-5xl font-bold font-pop">Login now!</h1>
           <p className="py-6 font-pop">
-            Keeper App keeps your note safe and secret
+            Keeper App keeps your note safe and secure
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg[#eee] text-black font-pop">

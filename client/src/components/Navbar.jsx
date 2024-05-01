@@ -17,7 +17,7 @@ export const Navbar = () => {
           <span style={{ color: "black", fontWeight: "bold" }}>
             <Typewriter
               words={["Keeper", "Keep your notes", "Safe", "Secure!"]}
-              loop={5}
+              loop={0}
               cursor
               cursorStyle="_"
               typeSpeed={70}
