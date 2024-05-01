@@ -30,13 +30,15 @@ router.post("/users", async (req, res) => {
 
 router.post("/notes", async (req, res) => {
   try {
-    const { title, content } = req.body;
-    const newNote = Note({
+    const { title, note, email } = req.body;
+    const user = User.findOne({ email: email });
+    const newNote = new Note({
       title: title,
-      content: content,
+      note: note,
+      user: user._id,
     });
     const savedNote = await newNote.save();
-    res.json(savedNote);
+    res.status(201).json(savedNote);
   } catch (error) {
     console.log(error);
   }

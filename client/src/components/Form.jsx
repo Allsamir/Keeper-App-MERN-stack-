@@ -2,12 +2,19 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdAddCircle } from "react-icons/io";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
 
 const Form = () => {
   const { register, handleSubmit } = useForm();
   const { user } = useContext(AuthContext);
-  console.log(user.email);
-  const onSubmit = (data, event) => {};
+  const onSubmit = (data, event) => {
+    const { title, note } = data;
+    axios.post("http://localhost:3000/notes", {
+      title: title,
+      note: note,
+      user: user.email,
+    });
+  };
   return (
     <div className="text-center my-12 w-80 md:w-96 mx-auto">
       <form
@@ -26,7 +33,7 @@ const Form = () => {
           cols="4"
           rows="4"
           className="bg-[#fff] text-black border-none outline-none resize-none"
-          {...register("body")}
+          {...register("note")}
         ></textarea>
         <button className="absolute right-4 top-[120px]">
           <input className="text-black" type="submit" value={``} />
