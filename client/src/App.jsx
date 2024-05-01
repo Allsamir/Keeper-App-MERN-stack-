@@ -27,14 +27,15 @@ function App() {
       <Navbar />
       <div className="container mx-auto px-4 min-h-screen">
         <Form handleFetchNotes={handleFetchNotes} />
-        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">
-          {notes.length === 0 ? (
-            <div className="text-center">
-              <h1 className="text-3xl font-pop">Add notes</h1>
-            </div>
-          ) : (
-            notes.map((note, index) => <Notes key={index} />)
-          )}
+        {notes.length === 0 && (
+          <div className="text-center">
+            <h1 className="text-3xl font-pop">Add notes</h1>
+          </div>
+        )}
+        <div className="grid grid-cols-1 lg:grid-cols-5 md:grid-cols-3 gap-8">
+          {notes.map((note, index) => (
+            <Notes key={index} note={note} />
+          ))}
         </div>
       </div>
       <Footer />
