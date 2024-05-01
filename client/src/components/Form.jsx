@@ -4,8 +4,9 @@ import { IoMdAddCircle } from "react-icons/io";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
 
-const Form = () => {
+const Form = ({ handleFetchNotes }) => {
   const { register, handleSubmit } = useForm();
   const { user } = useContext(AuthContext);
   const onSubmit = (data, event) => {
@@ -22,8 +23,10 @@ const Form = () => {
             title: "Note Saved",
             icon: "success",
             confirmButtonText: "Close",
+          }).then(() => {
+            event.target.reset();
+            handleFetchNotes();
           });
-          event.target.reset();
         }
       })
       .catch((err) => console.error(err));
@@ -55,6 +58,10 @@ const Form = () => {
       </form>
     </div>
   );
+};
+
+Form.propTypes = {
+  handleFetchNotes: PropTypes.func.isRequired,
 };
 
 export default Form;
