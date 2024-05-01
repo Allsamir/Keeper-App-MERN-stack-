@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Typewriter } from "react-simple-typewriter";
 
 export const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -12,7 +13,19 @@ export const Navbar = () => {
       }}
     >
       <div className="flex-1">
-        <a className="btn btn-ghost text-4xl font-lobStar">Keeper</a>
+        <a className="btn btn-ghost text-4xl font-lobStar">
+          <span style={{ color: "black", fontWeight: "bold" }}>
+            <Typewriter
+              words={["Keeper", "Keep your notes", "Safe", "Secure!"]}
+              loop={5}
+              cursor
+              cursorStyle="_"
+              typeSpeed={70}
+              deleteSpeed={50}
+              delaySpeed={1000}
+            />
+          </span>
+        </a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 items-center">
