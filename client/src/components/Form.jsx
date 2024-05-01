@@ -1,16 +1,18 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdAddCircle } from "react-icons/io";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Form = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data, event) => {
-    console.log(data.title, data.body);
-  };
+  const { user } = useContext(AuthContext);
+  console.log(user.email);
+  const onSubmit = (data, event) => {};
   return (
-    <div className="text-center my-12 w-96 mx-auto">
+    <div className="text-center my-12 w-80 md:w-96 mx-auto">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="font-pop flex flex-col bg-[#fff] text-black p-4 shadow-2xl rounded-2xl relative"
+        className="font-pop flex flex-col bg-[#fff] text-black p-4 shadow-2xl rounded-lg relative"
       >
         <input
           type="text"
@@ -19,7 +21,7 @@ const Form = () => {
           {...register("title")}
         />
         <textarea
-          placeholder="Take a note ..."
+          placeholder="Take a note..."
           id=""
           cols="4"
           rows="4"

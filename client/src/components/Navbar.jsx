@@ -13,7 +13,7 @@ export const Navbar = () => {
       }}
     >
       <div className="flex-1">
-        <a className="btn btn-ghost text-4xl font-lobStar">
+        <a className="btn btn-ghost text-2xl md:text-4xl font-lobStar">
           <span style={{ color: "black", fontWeight: "bold" }}>
             <Typewriter
               words={["Keeper", "Keep your notes", "Safe", "Secure!"]}
