@@ -31,14 +31,15 @@ router.post("/users", async (req, res) => {
 router.post("/notes", async (req, res) => {
   try {
     const { title, note, email } = req.body;
-    const user = User.findOne({ email: email });
-    const newNote = new Note({
-      title: title,
-      note: note,
-      user: user._id,
-    });
-    const savedNote = await newNote.save();
-    res.status(201).json(savedNote);
+    const user = await User.findOne({ email: email });
+    console.log(user);
+    // const newNote = new Note({
+    //   title: title,
+    //   note: note,
+    //   user: user._id,
+    // });
+    // const savedNote = await newNote.save();
+    // res.status(201).json(savedNote);
   } catch (error) {
     console.log(error);
   }

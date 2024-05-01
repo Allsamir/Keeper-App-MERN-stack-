@@ -3,17 +3,29 @@ import { useForm } from "react-hook-form";
 import { IoMdAddCircle } from "react-icons/io";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Form = () => {
   const { register, handleSubmit } = useForm();
   const { user } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { title, note } = data;
-    axios.post("http://localhost:3000/notes", {
-      title: title,
-      note: note,
-      user: user.email,
-    });
+    axios
+      .post("http://localhost:3000/notes", {
+        title: title,
+        note: note,
+        email: user.email,
+      })
+      .then((res) => {
+        console.log(res.data);
+        Swal.fire({
+          title: "Note Saved",
+          icon: "success",
+          confirmButtonText: "Close",
+        });
+        event.target.reset();
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <div className="text-center my-12 w-80 md:w-96 mx-auto">
