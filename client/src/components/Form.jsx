@@ -17,13 +17,14 @@ const Form = () => {
         email: user.email,
       })
       .then((res) => {
-        console.log(res.data);
-        Swal.fire({
-          title: "Note Saved",
-          icon: "success",
-          confirmButtonText: "Close",
-        });
-        event.target.reset();
+        if (res.data) {
+          Swal.fire({
+            title: "Note Saved",
+            icon: "success",
+            confirmButtonText: "Close",
+          });
+          event.target.reset();
+        }
       })
       .catch((err) => console.error(err));
   };

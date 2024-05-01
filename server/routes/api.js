@@ -4,10 +4,12 @@ const Note = require("../models/Note");
 const User = require("../models/User");
 //Get request
 
-router.get("/notes", async (req, res) => {
+router.get("/notes/:userEmail", async (req, res) => {
   try {
-    const notes = await Note.find();
-    res.json(notes);
+    const userEmail = req.params.userEmail;
+    const user = await User.findOne({ email: userEmail });
+    const notes = await Note.find({ user: user._id });
+    res.status(201).json(notes);
   } catch (error) {
     console.log(error);
   }

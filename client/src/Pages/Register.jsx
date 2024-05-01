@@ -27,14 +27,15 @@ const Register = () => {
                   email: email,
                 })
                 .then((res) => {
-                  console.log(res.data);
-                  Swal.fire({
-                    title: "Successfully Registered",
-                    icon: "success",
-                    confirmButtonText: "Close",
-                  });
-                  event.target.reset();
-                  navigate("/home");
+                  if (res.data) {
+                    Swal.fire({
+                      title: "Successfully Registered",
+                      icon: "success",
+                      confirmButtonText: "Close",
+                    });
+                    event.target.reset();
+                    navigate("/home");
+                  }
                 })
                 .catch((err) => console.error(err));
             })
