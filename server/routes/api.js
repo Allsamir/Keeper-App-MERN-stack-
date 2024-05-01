@@ -34,7 +34,6 @@ router.post("/notes", async (req, res) => {
   try {
     const { title, note, email } = req.body;
     const user = await User.findOne({ email: email });
-    console.log(user._id);
     const newNote = new Note({
       title: title,
       note: note,
