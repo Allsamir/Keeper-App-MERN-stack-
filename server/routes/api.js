@@ -46,6 +46,17 @@ router.post("/notes", async (req, res) => {
   }
 });
 
+router.put("/notes/:noteId", async (req, res) => {
+  const id = req.params.noteId;
+  const { title, note } = req.body;
+  const newNote = await Note.findByIdAndUpdate(
+    id,
+    { title, note },
+    { new: true },
+  );
+  res.status(201).json(newNote);
+});
+
 // Delete a post
 
 router.delete("/notes/:id", async (req, res) => {
