@@ -13,7 +13,7 @@ const Notes = ({ note, handleDelete, handleFetchNotes }) => {
   const onSubmit = (data, event) => {
     const { updatedTitle, updatedNote } = data;
     axios
-      .put(`http://localhost:3000/notes/${note._id}`, {
+      .put(`https://server-dun-pi.vercel.app/notes/${note._id}`, {
         title: updatedTitle,
         note: updatedNote,
       })
@@ -59,7 +59,7 @@ const Notes = ({ note, handleDelete, handleFetchNotes }) => {
               defaultValue={note.note}
               required
             ></textarea>
-            <button type="submit" className="text-xl hover:text-green-600">
+            <button type="submit" className="text-xl mt-4 hover:text-green-600">
               <CiSaveUp1 />
             </button>
           </form>

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const { login, loading } = useContext(AuthContext);
+  const { login, loading, setLoading } = useContext(AuthContext);
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const onSubmit = (data, event) => {
     const { email, password } = data;
@@ -30,7 +30,7 @@ const Login = () => {
             text: `${errorCode} ${errorMessage}`,
             icon: "error",
             confirmButtonText: "Close",
-          });
+          }).then(() => setLoading(false));
         });
     } else {
       Swal.fire({

@@ -13,7 +13,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const fetchNotes = useCallback(() => {
     axios
-      .get(`http://localhost:3000/notes/${user.email}`)
+      .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
       .then((res) => setNotes(res.data))
       .catch((err) => console.error(err));
   }, [user.email]);
@@ -38,7 +38,7 @@ function App() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/notes/${id}`)
+          .delete(`https://server-dun-pi.vercel.app/notes/${id}`)
           .then((res) => {
             if (res.data) {
               Swal.fire({

@@ -10,7 +10,7 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
-  const { createUser, loading } = useContext(AuthContext);
+  const { createUser, loading, setLoading } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { name, email, photoURL, password } = data;
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
@@ -23,7 +23,7 @@ const Register = () => {
           })
             .then(() => {
               axios
-                .post("http://localhost:3000/users", {
+                .post("https://server-dun-pi.vercel.app/users", {
                   email: email,
                 })
                 .then((res) => {
@@ -49,7 +49,7 @@ const Register = () => {
             text: `${errorCode} ${errorMessage}`,
             icon: "error",
             confirmButtonText: "Close",
-          });
+          }).then(() => setLoading(false));
         });
     } else {
       Swal.fire({

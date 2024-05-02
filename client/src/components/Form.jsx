@@ -14,7 +14,7 @@ const Form = ({ handleFetchNotes }) => {
     const { title, note } = data;
     console.log(title, note);
     axios
-      .post("http://localhost:3000/notes", {
+      .post("https://server-dun-pi.vercel.app/notes", {
         title: title,
         note: note,
         email: user.email,
