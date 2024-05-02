@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Typewriter } from "react-simple-typewriter";
-
+import { Tooltip } from "react-tooltip";
 export const Navbar = () => {
   const { logOut, user } = useContext(AuthContext);
   return (
@@ -31,11 +31,17 @@ export const Navbar = () => {
         <ul className="menu menu-horizontal px-1 items-center">
           <li>
             <div className="w-20">
-              <img
-                alt={user.displayName}
-                className="rounded-full"
-                src={user.photoURL}
-              />
+              <a
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={user.displayName}
+              >
+                <img
+                  alt={user.displayName}
+                  className="rounded-full"
+                  src={user.photoURL}
+                />
+              </a>
+              <Tooltip id="my-tooltip" />
             </div>
           </li>
           <li>
