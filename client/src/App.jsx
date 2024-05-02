@@ -51,9 +51,6 @@ function App() {
       }
     });
   };
-  const showModal = () => {
-    document.getElementById("my_modal_1").showModal();
-  };
 
   return (
     <>
@@ -71,7 +68,6 @@ function App() {
               key={index}
               note={note}
               handleDelete={handleDelete}
-              showModal={showModal}
               handleFetchNotes={handleFetchNotes}
             />
           ))}
