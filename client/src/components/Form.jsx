@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdAddCircle } from "react-icons/io";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 
 const Form = ({ handleFetchNotes }) => {
   const { register, handleSubmit } = useForm();
+  const [littleFunc, setLittleFunc] = useState(false);
   const { user } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { title, note } = data;
@@ -44,18 +45,26 @@ const Form = ({ handleFetchNotes }) => {
           className="bg-[#fff] text-black mb-4 border-none outline-none"
           {...register("title")}
           required
+          onClick={() => setLittleFunc(true)}
         />
         <textarea
           placeholder="Take a note..."
           id=""
           cols="4"
           rows="4"
-          className="bg-[#fff] text-black border-none outline-none resize-none"
+          className={`bg-[#fff] text-black border-none outline-none resize-none ${
+            littleFunc ? "block" : "hidden"
+          }`}
+          style={{ transition: "transform 0.3s ease-in-out" }}
           {...register("note")}
           required
         ></textarea>
-        <button className="absolute right-4 top-[120px]">
-          <input className="text-black" type="submit" value={``} />
+        <button
+          className={`absolute right-4 top-[150px] ${
+            littleFunc ? "block" : "hidden"
+          }`}
+          type="submit"
+        >
           <IoMdAddCircle className="text-4xl" />
         </button>
       </form>

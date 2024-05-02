@@ -16,7 +16,7 @@ export const Navbar = () => {
         <a className="btn btn-ghost text-xl sm:text-2xl md:text-4xl font-lobStar">
           <span style={{ color: "black", fontWeight: "bold" }}>
             <Typewriter
-              words={["Keeper", "Keep your notes", "Safe", "Secure!"]}
+              words={["Keeper", "Keeps your notes", "Safe", "Secure!"]}
               loop={0}
               cursor
               cursorStyle="_"

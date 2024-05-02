@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 function App() {
   const { user } = useContext(AuthContext);
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const fetchNotes = useCallback(() => {
     axios
       .get(`http://localhost:3000/notes/${user.email}`)
@@ -18,10 +19,12 @@ function App() {
   }, [user.email]);
   useEffect(() => {
     fetchNotes();
+    setLoading(false);
   }, [fetchNotes]);
 
   const handleFetchNotes = () => {
     fetchNotes();
+    setLoading(false);
   };
   const handleDelete = (id) => {
     Swal.fire({
@@ -57,6 +60,11 @@ function App() {
       <Navbar />
       <div className="container mx-auto px-4 min-h-screen">
         <Form handleFetchNotes={handleFetchNotes} />
+        {loading && (
+          <div className="min-h-screen text-center flex flex-col justify-center items-center">
+            <span className="loading loading-bars loading-lg"></span>
+          </div>
+        )}
         {notes.length === 0 && (
           <div className="text-center">
             <h1 className="text-3xl font-pop">Add notes</h1>

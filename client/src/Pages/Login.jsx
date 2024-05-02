@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, loading } = useContext(AuthContext);
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const onSubmit = (data, event) => {
     const { email, password } = data;
@@ -56,9 +56,16 @@ const Login = () => {
           'url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")',
       }}
     >
+      {loading && (
+        <div className="min-h-screen text-center flex flex-col justify-center items-center">
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      )}
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
         <div className="text-center lg:text-left font-pop text-black">
-          <h1 className="text-5xl font-bold font-pop">Login now!</h1>
+          <h1 className="text-3xl md:text-5xl font-bold font-pop">
+            Login now!
+          </h1>
           <p className="py-6 font-pop">
             Keeper App keeps your note safe and secure
           </p>

@@ -10,7 +10,7 @@ const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, loading } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { name, email, photoURL, password } = data;
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
@@ -75,9 +75,14 @@ const Register = () => {
           'url("https://www.transparenttextures.com/patterns/brushed-alum-dark.png")',
       }}
     >
+      {loading && (
+        <div className="min-h-screen text-center flex flex-col justify-center items-center">
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      )}
       <div className="hero-content flex-col lg:flex-row-reverse w-full">
         <div className="text-center lg:text-left">
-          <h1 className="text-5xl font-bold font-pop text-black">
+          <h1 className="text-3xl md:text-5xl font-bold font-pop text-black">
             Register now!
           </h1>
           <p className="py-6 font-pop text-black">
