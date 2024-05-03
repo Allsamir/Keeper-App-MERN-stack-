@@ -32,9 +32,10 @@ const Register = () => {
                       title: "Successfully Registered",
                       icon: "success",
                       confirmButtonText: "Close",
+                    }).then(() => {
+                      event.target.reset();
+                      navigate("/home");
                     });
-                    event.target.reset();
-                    navigate("/home");
                   }
                 })
                 .catch((err) => console.error(err));
