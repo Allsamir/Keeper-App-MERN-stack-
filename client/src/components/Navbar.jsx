@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
 import { Typewriter } from "react-simple-typewriter";
 import { Tooltip } from "react-tooltip";
+import useAuth from "../Hooks/useAuth";
 export const Navbar = () => {
-  const { logOut, user } = useContext(AuthContext);
+  const { logOut, user } = useAuth();
   return (
     <div
       className="navbar bg[#eee] text-black"

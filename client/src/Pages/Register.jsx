@@ -1,16 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import useAuth from "../Hooks/useAuth";
 const Register = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
-  const { createUser, loading, setLoading } = useContext(AuthContext);
+  const { createUser, loading, setLoading } = useAuth();
   const onSubmit = (data, event) => {
     const { name, email, photoURL, password } = data;
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
