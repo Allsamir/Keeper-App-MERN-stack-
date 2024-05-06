@@ -2,19 +2,19 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdAddCircle } from "react-icons/io";
 import { AuthContext } from "../Provider/AuthProvider";
-import axios from "axios";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
+import useAxios from "../Hooks/useAxios";
 
 const Form = ({ handleFetchNotes }) => {
   const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxios();
   const [littleFunc, setLittleFunc] = useState(false);
   const { user } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { title, note } = data;
-    console.log(title, note);
-    axios
-      .post("https://server-dun-pi.vercel.app/notes", {
+    axiosSecure
+      .post("/notes", {
         title: title,
         note: note,
         email: user.email,

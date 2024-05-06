@@ -2,18 +2,19 @@ import PropTypes from "prop-types";
 import { MdDelete } from "react-icons/md";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { CiSaveUp1 } from "react-icons/ci";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import useAxios from "../Hooks/useAxios";
 
 const Notes = ({ note, handleDelete, handleFetchNotes }) => {
   const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxios();
   const [isEditing, setIsEditing] = useState(false);
   const onSubmit = (data, event) => {
     const { updatedTitle, updatedNote } = data;
-    axios
-      .put(`https://server-dun-pi.vercel.app/notes/${note._id}`, {
+    axiosSecure
+      .put(`/notes/${note._id}`, {
         title: updatedTitle,
         note: updatedNote,
       })

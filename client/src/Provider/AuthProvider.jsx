@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { auth } from "../config/firebase.config";
-import axios from "axios";
 const provider = new GoogleAuthProvider();
 import {
   createUserWithEmailAndPassword,
@@ -12,6 +11,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import Swal from "sweetalert2";
+import axios from "axios";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         axios
           .post(
-            "http://localhost:3000/jwt",
+            "https://server-dun-pi.vercel.app/jwt",
             { email: currentUser.email },
             { withCredentials: true },
           )
@@ -61,7 +61,11 @@ const AuthProvider = ({ children }) => {
           .catch((err) => console.error(err));
       } else {
         axios
-          .post("http://localhost:3000/logout", {}, { withCredentials: true })
+          .post(
+            "https://server-dun-pi.vercel.app/logout",
+            {},
+            { withCredentials: true },
+          )
           .then()
           .catch((err) => console.error(err));
       }

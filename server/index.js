@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://note-keeper-d8ef0.web.app",
+      "https://note-keeper-d8ef0.firebaseapp.com",
+    ],
     credentials: true,
   }),
 );

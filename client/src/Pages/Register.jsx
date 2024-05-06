@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import useAuth from "../Hooks/useAuth";
 const Register = () => {
   const { register, handleSubmit } = useForm();
@@ -22,23 +21,14 @@ const Register = () => {
             photoURL: photoURL,
           })
             .then(() => {
-              axios
-                .post("https://server-dun-pi.vercel.app/users", {
-                  email: email,
-                })
-                .then((res) => {
-                  if (res.data) {
-                    Swal.fire({
-                      title: "Successfully Registered",
-                      icon: "success",
-                      confirmButtonText: "Close",
-                    }).then(() => {
-                      event.target.reset();
-                      navigate("/home");
-                    });
-                  }
-                })
-                .catch((err) => console.error(err));
+              Swal.fire({
+                title: "Successfully Registered",
+                icon: "success",
+                confirmButtonText: "Close",
+              }).then(() => {
+                event.target.reset();
+                navigate("/home");
+              });
             })
             .catch((err) => console.error(err));
         })

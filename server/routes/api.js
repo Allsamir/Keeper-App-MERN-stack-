@@ -5,6 +5,13 @@ const Note = require("../models/Note");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middlewares/verifyToken");
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production" ? true : false,
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+  maxAge: 1000 * 60 * 60,
+};
+
 // auth related apis
 
 router.post("/jwt", async (req, res) => {
@@ -12,18 +19,13 @@ router.post("/jwt", async (req, res) => {
   const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "1h",
   });
-  res
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 1000 * 60 * 60,
-    })
-    .send({ success: true });
+  res.cookie("token", token, cookieOptions).send({ success: true });
 });
 
 router.post("/logout", async (req, res) => {
-  res.clearCookie("token", { maxAge: 0 }).send({ success: true });
+  res
+    .clearCookie("token", { ...cookieOptions, maxAge: 0 })
+    .send({ success: true });
 });
 
 //Get request

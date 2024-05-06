@@ -4,7 +4,6 @@ import Form from "./components/Form";
 import { Navbar } from "./components/Navbar";
 import Notes from "./components/Notes";
 import { AuthContext } from "./Provider/AuthProvider";
-import axios from "axios";
 import Swal from "sweetalert2";
 import useAxios from "./Hooks/useAxios";
 
@@ -53,8 +52,8 @@ function App() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .delete(`https://server-dun-pi.vercel.app/notes/${id}`)
+        axiosSecure
+          .delete(`/notes/${id}`)
           .then((res) => {
             if (res.data) {
               Swal.fire({
