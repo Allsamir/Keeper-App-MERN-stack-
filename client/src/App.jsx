@@ -15,9 +15,7 @@ function App() {
   const fetchNotes = useCallback(() => {
     axiosSecure
       // .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
-      .get(`/notes/${user.email}`, {
-        withCredentials: true,
-      })
+      .get(`/notes/${user.email}`)
       .then((res) => {
         setNotes(res.data || []);
       })
