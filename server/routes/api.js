@@ -23,7 +23,6 @@ router.post("/jwt", async (req, res) => {
 });
 
 router.post("/logout", async (req, res) => {
-  const user = req.body;
   res.clearCookie("token", { maxAge: 0 }).send({ success: true });
 });
 

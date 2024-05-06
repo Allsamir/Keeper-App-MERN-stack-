@@ -50,7 +50,6 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-      console.log(currentUser);
       if (currentUser) {
         axios
           .post(
@@ -58,12 +57,12 @@ const AuthProvider = ({ children }) => {
             { email: currentUser.email },
             { withCredentials: true },
           )
-          .then((res) => console.log(res.data))
+          .then()
           .catch((err) => console.error(err));
       } else {
         axios
           .post("http://localhost:3000/logout", {}, { withCredentials: true })
-          .then((res) => console.log(res.data))
+          .then()
           .catch((err) => console.error(err));
       }
     });

@@ -6,20 +6,33 @@ import Notes from "./components/Notes";
 import { AuthContext } from "./Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "./Hooks/useAxios";
 
 function App() {
   const { user } = useContext(AuthContext);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxios();
   const fetchNotes = useCallback(() => {
-    axios
+    axiosSecure
       // .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
-      .get(`http://localhost:3000/notes/${user.email}`, {
+      .get(`/notes/${user.email}`, {
         withCredentials: true,
       })
-      .then((res) => setNotes(res.data))
-      .catch((err) => console.error(err));
-  }, [user.email]);
+      .then((res) => {
+        if (res?.status === 201) {
+          setNotes(res.data);
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Failed to load data",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+        console.error(err);
+      });
+  }, [user.email, axiosSecure]);
   useEffect(() => {
     fetchNotes();
     setLoading(false);
