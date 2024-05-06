@@ -4,9 +4,11 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../Hooks/useAuth";
+import useAxios from "../Hooks/useAxios";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const axiosSecure = useAxios();
   const { login, loading, setLoading, googleSignIn } = useAuth();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const onSubmit = (data, event) => {
@@ -54,13 +56,19 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         if (result.user) {
-          Swal.fire({
-            title: `Successfully Login ${result.user.displayName}`,
-            icon: "success",
-            confirmButtonText: "Close",
-          }).then(() => {
-            navigate("/home");
-          });
+          axiosSecure
+            .post(`/users`, { email: result.user.email })
+            .then((res) => {
+              if (res.data) {
+                Swal.fire({
+                  title: `Successfully Login ${result.user.displayName}`,
+                  icon: "success",
+                  confirmButtonText: "Close",
+                }).then(() => {
+                  navigate("/home");
+                });
+              }
+            });
         }
       })
       .catch((error) => {

@@ -5,8 +5,10 @@ import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAxios from "../Hooks/useAxios";
 const Register = () => {
   const { register, handleSubmit } = useForm();
+  const axiosSecure = useAxios();
   const navigate = useNavigate();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const { createUser, loading, setLoading } = useAuth();
@@ -21,14 +23,23 @@ const Register = () => {
             photoURL: photoURL,
           })
             .then(() => {
-              Swal.fire({
-                title: "Successfully Registered",
-                icon: "success",
-                confirmButtonText: "Close",
-              }).then(() => {
-                event.target.reset();
-                navigate("/home");
-              });
+              axiosSecure
+                .post(`/users`, {
+                  email: email,
+                })
+                .then((res) => {
+                  if (res.data) {
+                    Swal.fire({
+                      title: "Successfully Registered",
+                      icon: "success",
+                      confirmButtonText: "Close",
+                    }).then(() => {
+                      event.target.reset();
+                      navigate("/home");
+                    });
+                  }
+                })
+                .catch((err) => console.error(err));
             })
             .catch((err) => console.error(err));
         })

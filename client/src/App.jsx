@@ -19,9 +19,7 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
-        if (res?.status === 201) {
-          setNotes(res.data);
-        }
+        setNotes(res.data || []);
       })
       .catch((err) => {
         Swal.fire({
