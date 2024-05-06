@@ -1,14 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { auth } from "../config/firebase.config";
-const provider = new GoogleAuthProvider();
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
 } from "firebase/auth";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -39,11 +36,6 @@ const AuthProvider = ({ children }) => {
       .catch((error) => {
         console.error(error);
       });
-  };
-
-  const googleSignIn = () => {
-    setLoading(true);
-    return signInWithPopup(auth, provider);
   };
 
   useEffect(() => {
@@ -81,7 +73,6 @@ const AuthProvider = ({ children }) => {
     logOut,
     login,
     setLoading,
-    googleSignIn,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

@@ -2,14 +2,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import useAuth from "../Hooks/useAuth";
-import useAxios from "../Hooks/useAxios";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const axiosSecure = useAxios();
-  const { login, loading, setLoading, googleSignIn } = useAuth();
+  const { login, loading, setLoading } = useAuth();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const onSubmit = (data, event) => {
     const { email, password } = data;
@@ -52,38 +49,6 @@ const Login = () => {
   const handleTogglePasswordVisibility = () =>
     setPasswordVisiable(!isPasswordVisiable);
 
-  const signInWithGoogle = () => {
-    googleSignIn()
-      .then((result) => {
-        if (result.user) {
-          axiosSecure
-            .post(`/users`, { email: result.user.email })
-            .then((res) => {
-              if (res.data) {
-                Swal.fire({
-                  title: `Successfully Login ${result.user.displayName}`,
-                  icon: "success",
-                  confirmButtonText: "Close",
-                }).then(() => {
-                  navigate("/home");
-                });
-              }
-            });
-        }
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        Swal.fire({
-          title: "Error!",
-          text: `${errorCode} ${errorMessage}`,
-          icon: "error",
-          confirmButtonText: "Close",
-        }).then(() => setLoading(false));
-        // ...
-      });
-  };
   return (
     <div
       className="hero min-h-screen bg-[#eee]"
@@ -156,14 +121,6 @@ const Login = () => {
                 type="submit"
                 value={`Login`}
               />
-            </div>
-            <div className="w-full">
-              <button
-                className="btn btn-outline btn-block text-sky-500 text-lg"
-                onClick={signInWithGoogle}
-              >
-                <FcGoogle />
-              </button>
             </div>
             <p className="text-center py-2">
               Don&apos;t have any account?{" "}
