@@ -13,7 +13,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const fetchNotes = useCallback(() => {
     axios
-      .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
+      // .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
+      .get(`http://localhost:3000/notes/${user.email}`, {
+        withCredentials: true,
+      })
       .then((res) => setNotes(res.data))
       .catch((err) => console.error(err));
   }, [user.email]);

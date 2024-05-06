@@ -4,6 +4,7 @@ const router = express.Router();
 const Note = require("../models/Note");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const verifyToken = require("../middlewares/verifyToken");
 // auth related apis
 
 router.post("/jwt", async (req, res) => {
@@ -23,15 +24,17 @@ router.post("/jwt", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   const user = req.body;
-  console.log("user is that logged out", user);
   res.clearCookie("token", { maxAge: 0 }).send({ success: true });
 });
 
 //Get request
 
-router.get("/notes/:userEmail", async (req, res) => {
+router.get("/notes/:userEmail", verifyToken, async (req, res) => {
   try {
     const userEmail = req.params.userEmail;
+    if (req.user.email !== userEmail) {
+      return res.status(403).send({ message: "forbideen access" });
+    }
     const user = await User.findOne({ email: userEmail });
     const notes = await Note.find({ user: user._id });
     res.status(201).json(notes);
