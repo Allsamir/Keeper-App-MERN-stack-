@@ -149,6 +149,14 @@ const Login = () => {
                 value={`Login`}
               />
             </div>
+            <div className="w-full">
+              <button
+                className="btn btn-outline btn-block text-sky-500 text-lg"
+                onClick={signInWithGoogle}
+              >
+                <FcGoogle />
+              </button>
+            </div>
             <p className="text-center py-2">
               Don&apos;t have any account?{" "}
               <Link className="text-blue-600" to={`/register`}>
@@ -156,14 +164,6 @@ const Login = () => {
               </Link>{" "}
               here
             </p>
-            <div className="flex justify-center items-center gap-4 mt-3">
-              <button
-                className="btn btn-outline text-sky-500"
-                onClick={signInWithGoogle}
-              >
-                <FcGoogle />
-              </button>
-            </div>
           </form>
         </div>
       </div>
