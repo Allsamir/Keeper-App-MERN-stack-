@@ -17,7 +17,7 @@ function App() {
       // .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
       .get(`/notes/${user.email}`)
       .then((res) => {
-        setNotes(res.data || []);
+        setNotes(res.data);
       })
       .catch((err) => {
         Swal.fire({
