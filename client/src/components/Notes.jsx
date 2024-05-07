@@ -5,13 +5,17 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { CiSaveUp1 } from "react-icons/ci";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { MdClose } from "react-icons/md";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Notes = ({ note, handleDelete, handleFetchNotes }) => {
   const { register, handleSubmit } = useForm();
+  const { setLoading } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const onSubmit = (data, event) => {
     const { updatedTitle, updatedNote } = data;
+    setLoading(true);
     axios
       .put(`https://server-dun-pi.vercel.app/notes/${note._id}`, {
         title: updatedTitle,
@@ -25,6 +29,7 @@ const Notes = ({ note, handleDelete, handleFetchNotes }) => {
             confirmButtonText: "Close",
           })
             .then(() => {
+              setLoading(false);
               event.target.reset();
               setIsEditing(false);
               handleFetchNotes();
@@ -59,9 +64,21 @@ const Notes = ({ note, handleDelete, handleFetchNotes }) => {
               defaultValue={note.note}
               required
             ></textarea>
-            <button type="submit" className="text-xl mt-4 hover:text-green-600">
-              <CiSaveUp1 />
-            </button>
+            <div className="flex gap-2">
+              <button
+                type="submit"
+                className="text-xl mt-4 hover:text-green-600"
+              >
+                <CiSaveUp1 />
+              </button>
+              <button
+                className="text-xl mt-4 hover:text-red-600"
+                type="button"
+                onClick={() => setIsEditing(false)}
+              >
+                <MdClose />
+              </button>
+            </div>
           </form>
         ) : (
           <>
