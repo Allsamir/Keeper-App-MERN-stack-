@@ -29,21 +29,30 @@ export const Navbar = () => {
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1 items-center">
-          <li>
-            <div className="w-20">
-              <a
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={user.displayName}
-              >
-                <img
-                  alt={user.displayName}
-                  className="rounded-full"
-                  src={user.photoURL}
-                />
-              </a>
-              <Tooltip id="my-tooltip" />
-            </div>
-          </li>
+          {user.photoURL ? (
+            <li>
+              <div className="w-20">
+                <a
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content={user.displayName}
+                >
+                  <img
+                    alt={user.displayName}
+                    className="rounded-full"
+                    src={user.photoURL}
+                  />
+                </a>
+                <Tooltip id="my-tooltip" />
+              </div>
+            </li>
+          ) : (
+            <li>
+              <h1 className="font-lobStar font-bold mr-4 text-xl">
+                {user.displayName}
+              </h1>
+            </li>
+          )}
+
           <li>
             <button onClick={logOut} className="btn btn-outline text-black">
               Logout

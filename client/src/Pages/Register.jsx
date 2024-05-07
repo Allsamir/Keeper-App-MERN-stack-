@@ -125,7 +125,6 @@ const Register = () => {
                 type="text"
                 placeholder="Your Live Photo URL"
                 className="input input-bordered bg-[#eee]"
-                required
                 {...register("photoURL")}
               />
             </div>
