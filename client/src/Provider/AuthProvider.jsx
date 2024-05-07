@@ -8,11 +8,13 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import Swal from "sweetalert2";
+import useAxios from "../Hooks/useAxios";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const secureAxios = useAxios();
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -41,8 +43,19 @@ const AuthProvider = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
+      if (user) {
+        secureAxios
+          .post("/jwt", { email: user.email })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.error(err));
+      } else {
+        secureAxios
+          .post("/logout", { email: null })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.error(err));
+      }
     });
-  }, []);
+  }, [secureAxios]);
   const authInfo = {
     user,
     createUser,

@@ -6,17 +6,23 @@ import Notes from "./components/Notes";
 import { AuthContext } from "./Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxios from "./Hooks/useAxios";
 
 function App() {
   const { user } = useContext(AuthContext);
+  const secureAxios = useAxios();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const fetchNotes = useCallback(() => {
-    axios
-      .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
-      .then((res) => setNotes(res.data))
+    secureAxios
+      .get(`/notes?email=${user.email}`)
+      .then((res) => {
+        if (res) {
+          setNotes(res.data);
+        }
+      })
       .catch((err) => console.error(err));
-  }, [user.email]);
+  }, [user.email, secureAxios]);
   useEffect(() => {
     fetchNotes();
     setLoading(false);
