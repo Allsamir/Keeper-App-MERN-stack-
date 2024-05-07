@@ -13,16 +13,16 @@ import PasswordReset from "./Pages/PasswordReset.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/home",
     element: (
       <PrivateRoute>
         <App />
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/register",

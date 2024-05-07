@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-  const { login, loading, setLoading } = useAuth();
+  const { login, loading, setLoading } = useContext(AuthContext);
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
   const onSubmit = (data, event) => {
     const { email, password } = data;
@@ -19,8 +19,9 @@ const Login = () => {
             icon: "success",
             confirmButtonText: "Close",
           }).then(() => {
+            setLoading(false);
             event.target.reset();
-            navigate("/home");
+            navigate("/");
           });
         })
         .catch((error) => {

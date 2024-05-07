@@ -8,7 +8,6 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import Swal from "sweetalert2";
-import axios from "axios";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -39,32 +38,10 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
       setLoading(false);
-      if (currentUser) {
-        axios
-          .post(
-            "https://server-dun-pi.vercel.app/jwt",
-            { email: currentUser.email },
-            { withCredentials: true },
-          )
-          .then()
-          .catch((err) => console.error(err));
-      } else {
-        axios
-          .post(
-            "https://server-dun-pi.vercel.app/logout",
-            {},
-            { withCredentials: true },
-          )
-          .then()
-          .catch((err) => console.error(err));
-      }
     });
-    return () => {
-      return unsubscribe();
-    };
   }, []);
   const authInfo = {
     user,

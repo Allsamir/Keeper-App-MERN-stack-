@@ -4,30 +4,19 @@ import Form from "./components/Form";
 import { Navbar } from "./components/Navbar";
 import Notes from "./components/Notes";
 import { AuthContext } from "./Provider/AuthProvider";
+import axios from "axios";
 import Swal from "sweetalert2";
-import useAxios from "./Hooks/useAxios";
 
 function App() {
   const { user } = useContext(AuthContext);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const axiosSecure = useAxios();
   const fetchNotes = useCallback(() => {
-    axiosSecure
-      // .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
-      .get(`/notes/${user.email}`)
-      .then((res) => {
-        setNotes(res.data);
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: "Failed to load data",
-          icon: "error",
-          confirmButtonText: "Close",
-        });
-        console.error(err);
-      });
-  }, [user.email, axiosSecure]);
+    axios
+      .get(`https://server-dun-pi.vercel.app/notes/${user.email}`)
+      .then((res) => setNotes(res.data))
+      .catch((err) => console.error(err));
+  }, [user.email]);
   useEffect(() => {
     fetchNotes();
     setLoading(false);
@@ -48,8 +37,8 @@ function App() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure
-          .delete(`/notes/${id}`)
+        axios
+          .delete(`https://server-dun-pi.vercel.app/notes/${id}`)
           .then((res) => {
             if (res.data) {
               Swal.fire({

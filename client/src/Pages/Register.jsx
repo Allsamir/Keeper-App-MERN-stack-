@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { auth } from "../config/firebase.config";
 import { updateProfile } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/useAuth";
-import useAxios from "../Hooks/useAxios";
+import axios from "axios";
 const Register = () => {
   const { register, handleSubmit } = useForm();
-  const axiosSecure = useAxios();
   const navigate = useNavigate();
   const [isPasswordVisiable, setPasswordVisiable] = useState(false);
-  const { createUser, loading, setLoading } = useAuth();
+  const { createUser, loading, setLoading } = useContext(AuthContext);
   const onSubmit = (data, event) => {
     const { name, email, photoURL, password } = data;
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
@@ -23,8 +22,8 @@ const Register = () => {
             photoURL: photoURL,
           })
             .then(() => {
-              axiosSecure
-                .post(`/users`, {
+              axios
+                .post("https://server-dun-pi.vercel.app/users", {
                   email: email,
                 })
                 .then((res) => {
@@ -34,8 +33,9 @@ const Register = () => {
                       icon: "success",
                       confirmButtonText: "Close",
                     }).then(() => {
+                      setLoading(false);
                       event.target.reset();
-                      navigate("/home");
+                      navigate("/");
                     });
                   }
                 })
